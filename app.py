@@ -3,7 +3,7 @@ from flask import Flask
 from flask_smorest import Api
 from flask_cors import CORS
 from dotenv import load_dotenv
-from ml_model.model import train_and_save_model
+from ml_model.model import train_model
 from db import db
 from resources.prediction import blp as PredictionBlueprint
 
@@ -38,12 +38,11 @@ def create_app(db_url=None):
     with app.app_context():
         db.create_all()
 
-     # Treinar e salvar o modelo - certifique-se de que esta linha seja executada
-    train_and_save_model()
+     # Treinar e salvar o modelo
+    train_model()
 
     return app
 
-# Seu código para iniciar a aplicação, se necessário
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
