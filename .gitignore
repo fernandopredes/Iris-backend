@@ -9,3 +9,4 @@ instance/
 .DS_Store
 venv
 venv/
+best_iris_model.pkl
