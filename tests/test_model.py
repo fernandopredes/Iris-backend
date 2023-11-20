@@ -1,3 +1,4 @@
+import pandas as pd
 import pytest
 from sklearn.metrics import accuracy_score
 from ml_model.model import train_model, load_model, predict_iris
@@ -12,6 +13,11 @@ def iris_dataset():
 
 def test_model_accuracy(iris_dataset):
     X_train, X_test, y_train, y_test = iris_dataset
+    iris = load_iris()
+    feature_names = iris['feature_names']
+
+    # Convertendo X_test para DataFrame com os nomes das colunas
+    X_test_df = pd.DataFrame(X_test, columns=feature_names)
 
     # Treinar e salvar o modelo
     train_model()
@@ -20,7 +26,7 @@ def test_model_accuracy(iris_dataset):
     model = load_model()
 
     # Fazer previsões no conjunto de teste
-    predictions = model.predict(X_test)
+    predictions = model.predict(X_test_df)
 
     # Calcular a precisão
     accuracy = accuracy_score(y_test, predictions)
